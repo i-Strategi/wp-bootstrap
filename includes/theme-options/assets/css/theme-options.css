@@ -1,0 +1,273 @@
+/*
+ *
+ * THEME SETTINGS STYLESHEET FILE
+ *
+ */
+
+
+/* 
+ * @ WP Overrides
+ */
+
+.screen-reader-text,
+.screen-reader-text span,
+.ui-helper-hidden-accessible,
+#adminmenumain,
+#screen-meta,
+#wpadminbar,
+#wpfooter {
+	display: none;
+}
+
+#wpbody-content {
+	outline: none !important;
+}
+
+/*
+ * @ Theme settings
+ */
+
+body {
+	padding-top: 72px;
+}
+
+a {
+	color: #333;
+}
+
+#navbar {
+	box-shadow: 0 5px 17px 0 rgba(0, 0, 0, .03);
+	background-color: #FFF !important;
+	z-index: 9999;
+}
+
+#navbar .btn {
+	border-width: 2px;
+	border-radius: 100px;
+}
+
+
+.tab-header {
+	background: linear-gradient(130deg, #f26798 0%, #3023ae 100%);
+	color: #FFF;
+	text-align: center;
+	padding: 50px 15px;
+	margin-bottom: 30px;
+}
+
+.tab-header h1 {
+	font-weight: 400;
+}
+
+#statusMessage {
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+}
+
+#statusMessage .toast {
+	min-width: 280px;
+}
+
+#sidebar {
+	position: fixed;
+	left: 0;
+	top: 72px;
+	height: calc(100% - 72px);
+	border-right: 1px solid rgba(0, 0, 0, .1);
+	width: 240px;
+	background-color: #FFF;
+	z-index: 999;
+	transition: all ease .2s;
+}
+
+#sidebar .fas,
+#sidebar .fab,
+#sidebar .far {
+	line-height: inherit;
+	width: 42px;
+	font-size: 1rem;
+}
+
+
+.sidebar-closed #sidebar {
+	width: 73px;
+	transition: all ease .2s;
+}
+
+.sidebar-closed #sidebar .nav>li>.nav-link {
+	font-size: 0;
+}
+
+
+#sidebar>.nav {
+	margin-top: 15px;
+}
+
+#sidebar>.nav>li>a {
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+
+fieldset.form-horizontal {
+	margin-bottom: 30px;
+}
+
+.media-preview {
+	max-width: 70px;
+	max-height: 70px;
+}
+
+/*
+ * @ Bootstrap overrides
+ */
+
+.wpbootstrap4 .page-header {
+	margin: 2.5rem 0;
+}
+
+.wpbootstrap4 .btn-default {
+	background-color: #FFF;
+	border: 1px solid #FFF;
+	color: #666;
+}
+
+.wpbootstrap4 .btn-default.btn-outline {
+	border: 1px solid #FFF;
+	color: #FFF;
+	background-color: transparent;
+}
+
+.wpbootstrap4 label.control-label {
+	cursor: text;
+	text-align: left;
+	line-height: 1.5;
+	min-height: calc(2.25rem + 2px);
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	padding: .375rem 0;
+}
+
+.wpbootstrap4 label.control-label[for*=""] {
+	cursor: pointer;
+}
+
+.wpbootstrap4 .form-control.has-error {
+	border-color: #a94442;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.wpbootstrap4 .form-control.has-error:focus {
+	border-color: #843534;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+
+.table-layout-fixed {
+	table-layout: fixed;
+	margin-bottom: 0;
+}
+
+.table-layout-fixed td:first-child {
+	padding-left: 0;
+}
+
+.table-layout-fixed td:last-child {
+	padding-right: 0;
+}
+
+
+.w-100 {
+	width: 100%;
+}
+
+.no-thead td {
+	border: 0 !important;
+	padding-top: 0 !important;
+}
+
+
+/*
+ * @ Components
+ */
+
+/* Toggle Switch */
+.switch {
+	position: relative;
+	display: block;
+	width: 60px;
+	height: 34px;
+	margin-bottom: 0;
+}
+
+.switch input {
+	display: none;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked+.slider {
+	background-color: #2ecc71;
+}
+
+input:focus+.slider {
+	box-shadow: 0 0 1px #2ecc71;
+}
+
+input:checked+.slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+/* ==================== MEDIA BREAKPOINTS ==================== */
+@media only screen and (min-width:768px) {
+
+	.flex {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.flex>div {
+		margin-bottom: 30px;
+	}
+
+	.tooltip-inner {
+		max-width: 360px;
+	}
+
+
+}

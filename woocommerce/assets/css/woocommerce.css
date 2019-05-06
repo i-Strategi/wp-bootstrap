@@ -1,0 +1,20 @@
+/*
+	WooCommerce CSS for Bootstrap
+	Developed by i-Strategi
+*/
+
+/* ===== DEFAULT ===== */
+ul.row {
+	list-style:none;
+	padding:0;
+}
+
+/* ===== MINI CART ===== */
+.mini_cart_item {
+	
+}
+	.mini_cart_item img{
+		height: 34px;
+		width: auto;
+		float: right;
+	}

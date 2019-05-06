@@ -1,0 +1,162 @@
+﻿/*
+ Theme Name:		WP Bootstrap
+ Theme URI:			https://github.com/i-Strategi/wp-bootstrap
+ Description:		Bootstrap 4 base theme for Wordpress application development. Note: This framework is intended for developers, and not casual users.
+ Version:			1.0.1
+ Author:			i-Strategi ApS.
+ Text Domain:		wpbs
+ Author	URI: 		https://i-strategi.dk/
+ Tags:				Bootstrap, Responsive, Boilerplate
+*/
+
+/* 
+ * .@ Wordpress standards
+ */
+
+img.alignright {
+	float: right;
+	margin: 0 0 1em 1em;
+}
+
+img.alignleft {
+	float: left;
+	margin: 0 1em 1em 0;
+}
+
+img.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* 
+ * .@ Defaults
+ */
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+abbr[data-original-title],
+abbr[title] {
+	border: 0;
+	text-decoration: none;
+}
+
+.screen-reader-text {
+	display: none !important;
+}
+
+/* 
+ * .@ Layout
+ */
+
+#root.full {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#root.boxed {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+
+
+/* 
+ * .@ Comments 
+ */
+
+#comments ul {
+	list-style: none;
+	padding: 0;
+}
+
+#comments ul.children {
+	padding-left: 30px;
+}
+
+.comment-box {
+	margin-bottom: 15px;
+}
+
+.comment-box .btn-group {
+	float: right;
+}
+
+
+/* 
+ * .@ Bootstrap 
+ */
+
+body.admin-bar.fixed-navbar .navbar-fixed-top {
+	top: 32px;
+}
+
+.card>.table {
+	margin-bottom: 0;
+}
+
+.card>.table thead:first-child th,
+.card>.table thead:first-child td {
+	border-top: 0;
+}
+
+
+
+/*
+ * .@ Posts
+ */
+
+.meta>span {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+/**
+ * Offcanvas menu
+ */
+#offcanvas-menu {
+	box-shadow: none;
+	width: 240px;
+	left: -240px;
+	position: fixed;
+	top: 0;
+	z-index: 3000;
+	background: #FFF;
+	transition: left ease .2s;
+	height: 100%;
+	padding: 1rem;
+}
+
+.offcanvas-in #offcanvas-menu {
+	left: 0;
+	transition: left ease .2s;
+	box-shadow: 0 0 16px rgba(0, 0, 0, .28);
+}
+
+.admin-bar #offcanvas-menu {
+	height: calc(100% - 32px);
+	top: 32px;
+}
+
+#offcanvas-menu .menu {
+	list-style: none;
+	padding: 0;
+}
+
+#offcanvas-menu .menu>li>a {
+	display: block;
+	padding: .5rem 0;
+}
+
+.offcanvas-menu-backdrop {
+	position: fixed;
+	z-index: 2000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+}
