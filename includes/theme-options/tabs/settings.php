@@ -102,18 +102,18 @@
 	var hash = document.location.hash;
 	var prefix = "tab_";
 	if (hash) {
-		$('#sidebar .nav a[href="'+hash.replace(prefix,"")+'"]').tab('show');
+		jQuery('#sidebar .nav a[href="'+hash.replace(prefix,"")+'"]').tab('show');
 	} 
 
 	// Change hash for page-reload
-	$('#sidebar .nav a').on('shown', function (e) {
+	jQuery('#sidebar .nav a').on('shown', function (e) {
 		window.location.hash = e.target.hash.replace("#", "#" + prefix);
 	});
 	
 	/* =============================== */
 
 	
-	jQuery('.repeatable-wrap').each(function() {
+	jQuery('.repeatable-wrap').each(function($) {
 		
 		// The table variable
 		var repeatableSection = this;
