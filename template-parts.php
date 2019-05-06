@@ -539,19 +539,20 @@ function wpbs_footer_widgets()
     if (!empty(WPBS['layout']['footer']['widgets'])) {
         foreach (WPBS['layout']['footer']['widgets'] as $widget) {
 
-            $id = sanitize_title($widget['name']);
-
             $classes = array();
-
+            
             foreach($widget as $key => $value ) {
                 if($key != "name") {
                     $classes[] = $key .'-'. $value;                
                 }
             }
-
+            
+            $id = sanitize_title($widget['name']);
             $classes = implode(" ", $classes);
 
-            echo "<div id='$id' class='$classes'>" . dynamic_sidebar($widget['name']) . "</div>";
+            echo "<div id='$id' class='$classes'>";
+                dynamic_sidebar($widget['name']);
+            echo "</div>";
 
         };
     }
