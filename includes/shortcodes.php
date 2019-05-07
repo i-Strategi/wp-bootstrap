@@ -28,7 +28,7 @@ add_shortcode('phone', 'wpbs_get_phone_number');
 // Contact e-mail
 function wpbs_get_contact_mail()
 {
-    return WPBS['profile']['mail'];
+    return WPBS['profile']['email'];
 }
 add_shortcode('mail', 'wpbs_get_contact_mail');
 
@@ -49,7 +49,7 @@ add_shortcode('street', 'wpbs_get_address_street');
 // Address (postal code)
 function wpbs_get_address_postalcode()
 {
-    return WPBS['profile']['address']['postalcode'];
+    return WPBS['profile']['address']['postcode'];
 }
 add_shortcode('postalcode', 'wpbs_get_address_postalcode');
 

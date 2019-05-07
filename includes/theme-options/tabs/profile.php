@@ -54,18 +54,27 @@
 		<div class="form-row form-group">
 			<div class="col-sm-4"><label class="control-label"><?php _e('E-mail address','wpbs'); ?></label></div>
 			<div class="col-sm-8 col-lg-5">
-				<input type="text" class="form-control" name="wpbs_settings[profile][mail]" id="mail" value="<?php echo $options['profile']['mail']; ?>" />
+				<input type="text" class="form-control" name="wpbs_settings[profile][email]" id="email" value="<?php echo $options['profile']['email']; ?>" />
 			</div>
 		</div>
 		
 		<div class="form-row form-group">
 			<div class="col-sm-4"><label class="control-label"><?php _e('Address','wpbs'); ?></label></div>
 			<div class="col-sm-8 col-lg-5">
-				<p><input type="text" class="form-control" name="wpbs_settings[profile][address]" id="address" value="<?php echo $options['profile']['address']; ?>" placeholder="<?php _e('Street','wpbs'); ?>" /></p>
-				<div class="row clearfix">
-					<div class="col-5"><input type="text" class="form-control" name="wpbs_settings[profile][postcode]" id="postcode" value="<?php echo $options['profile']['postcode']; ?>" placeholder="<?php _e('Postcode','wpbs'); ?>" /></div>
-					<div class="col-7"><input type="text" class="form-control" name="wpbs_settings[profile][city]" id="city" value="<?php echo $options['profile']['city']; ?>" placeholder="<?php _e('City','wpbs'); ?>" /></div>
+				<p>
+					<input type="text" class="form-control" name="wpbs_settings[profile][address][street]" id="address" value="<?php echo $options['profile']['address']['street']; ?>" placeholder="<?php _e('Street','wpbs'); ?>" />
+				</p>
+				<div class="form-row clearfix form-group">
+					<div class="col-5">
+						<input type="text" class="form-control" name="wpbs_settings[profile][address][postcode]" id="postcode" value="<?php echo $options['profile']['address']['postcode']; ?>" placeholder="<?php _e('Postcode','wpbs'); ?>" />
+					</div>
+					<div class="col-7">
+						<input type="text" class="form-control" name="wpbs_settings[profile][address][city]" id="city" value="<?php echo $options['profile']['address']['city']; ?>" placeholder="<?php _e('City','wpbs'); ?>" />
+					</div>
 				</div>
+				<p>
+					<input type="text" class="form-control" name="wpbs_settings[profile][address][country]" id="country" value="<?php echo $options['profile']['address']['country']; ?>" placeholder="<?php _e('Country','wpbs'); ?>" />
+				</p>
 			</div>
 		</div>
 		
@@ -95,13 +104,6 @@
 			<div class="col-sm-4"><label class="control-label"><i class="fab fa-fw fa-facebook"></i> <?php _e('Facebook','wpbs'); ?></label></div>
 			<div class="col-sm-8 col-lg-5">
 				<input type="url" class="form-control" name="wpbs_settings[profile][social][facebook_url]" id="facebook_url" value="<?php echo $options['profile']['social']['facebook_url']; ?>" />
-			</div>
-		</div>
-		
-		<div class="form-row form-group">
-			<div class="col-sm-4"><label class="control-label"><i class="fab fa-fw fa-google"></i> <?php _e('Google+','wpbs'); ?></label></div>
-			<div class="col-sm-8 col-lg-5">
-				<input type="url" class="form-control" name="wpbs_settings[profile][social][google_plus_url]" id="google_plus_url" value="<?php echo $options['profile']['social']['google_plus_url']; ?>" />
 			</div>
 		</div>
 		
