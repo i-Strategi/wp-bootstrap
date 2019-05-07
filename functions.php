@@ -18,7 +18,7 @@ require_once ('includes/nav-walkers.php');
 
 // WooCommerce functions
 if ( class_exists( 'WooCommerce' ) ) {
-    require_once ('woocommerce/functions.php');
+    require_once ('includes/woocommerce.php');
 }
 
 // Integrations

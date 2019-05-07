@@ -435,8 +435,8 @@
 					</div>
 					<div class="col-sm-8">
 						<label class="switch">
-							<input type="hidden" name="wpbs_settings[woocommerce][product][share][e_mail]" value="0" />
-							<input type="checkbox" name="wpbs_settings[woocommerce][product][share][e_mail]" value="1" <?php checked($options['woocommerce']['product']['share']['e_mail'], 1); ?> />
+							<input type="hidden" name="wpbs_settings[woocommerce][product][share][email]" value="0" />
+							<input type="checkbox" name="wpbs_settings[woocommerce][product][share][email]" value="1" <?php checked($options['woocommerce']['product']['share']['email'], 1); ?> />
 							<div class="slider round"></div>
 						</label>
 					</div>			

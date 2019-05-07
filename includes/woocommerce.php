@@ -332,24 +332,7 @@ add_filter('woocommerce_checkout_fields', 'wpbs_checkout_form_control',0);
 function wpbs_custom_checkout_coupon()
 {
     if (wc_coupons_enabled()) {
-        echo '<tr class="custom-checkout-coupon-form">
-			<td colspan="2" class="pl-0 pr-0">
-			<div id="coupon_form">
-				<h3 class="h5">Rabatkode</h3>
-				<div class="form-inline">
-					<input class="form-control" type="text" placeholder="Indtast rabatkode" name="fakeCouponField" id="fakeCouponField">
-					<a class="ml-3 btn btn-primary" href="#" id="fakeCouponSubmit">Anvend</a>
-				</div>
-				<script>
-				jQuery("#fakeCouponSubmit").on("click",function () {
-					var couponValue = jQuery("#fakeCouponField").val();
-					jQuery("form.checkout_coupon #coupon_code").val(couponValue);
-					jQuery("form.checkout_coupon").submit();
-				});
-				</script>
-			</div>
-			</td>
-		</tr>';
+       get_template_part('woocommerce/checkout/custom-coupon');
     }
 }
 add_action('woocommerce_review_order_before_order_total', 'wpbs_custom_checkout_coupon');
@@ -487,20 +470,24 @@ if (!empty( WPBS['woocommerce']['product']['general_text'] )) {
 if (!empty( WPBS['woocommerce']['product']['share'] )) {
     function wpbs_wc_share()
     {
-        echo '<div class="product-share">';
+        echo '<ul class="product-share list-inline">';
         //Facebook
         if ( !empty ( WPBS['woocommerce']['product']['share']['facebook'] ) ) {
-            echo '<a href="https://www.facebook.com/sharer.php?u=' . get_post_permalink() . '" target="_blank" class="share-link facebook" title="' . __('Share on Facebook', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-facebook-f"></span></a>';
+            echo '<li class="list-inline-item"><a href="https://www.facebook.com/sharer.php?u=' . get_post_permalink() . '" target="_blank" class="share-link facebook" title="' . __('Share on Facebook', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-facebook-f"></span></a></li>';
         }
         //Twitter
         if ( !empty( WPBS['woocommerce']['product']['share']['twitter'] ) ) {
-            echo '<a href="https://twitter.com/share?url=' . get_post_permalink() . '" target="_blank" class="share-link twitter" title="' . __('Share on Twitter', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-twitter"></span></a>';
+            echo '<li class="list-inline-item"><a href="https://twitter.com/share?url=' . get_post_permalink() . '" target="_blank" class="share-link twitter" title="' . __('Share on Twitter', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-twitter"></span></a></li>';
+        }
+        //Linkedin+
+        if ( !empty( WPBS['woocommerce']['product']['share']['linkedin'] ) ) {
+            echo '<li class="list-inline-item"><a href="https://www.linkedin.com/sharing/share-offsite/?url=' . get_post_permalink() . '" target="_blank" class="share-link linkedin" title="' . __('Share on LinkedIn', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-linkedin-in"></span></a></li>';
         }
         //Google+
-        if ( !empty( WPBS['woocommerce']['product']['share']['google_plus'] ) ) {
-            echo '<a href="https://plus.google.com/share?url=' . get_post_permalink() . '" target="_blank" class="share-link google-plus" title="' . __('Share on Google+', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-google-plus"></span></a>';
+        if ( !empty( WPBS['woocommerce']['product']['share']['email'] ) ) {
+            echo '<li class="list-inline-item"><a href="mailto:?body=' . get_post_permalink() . '" class="share-link email" title="' . __('Send in e-mail', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fas fa-envelope"></span></a></li>';
         }
-        echo '</div>';
+        echo '</ul>';
     }
 
     add_filter('woocommerce_single_product_summary', 'wpbs_wc_share', 36);
