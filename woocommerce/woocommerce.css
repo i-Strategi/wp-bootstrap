@@ -228,10 +228,49 @@
 	transition: all 1s ease;
 }
 
-/* Star rating */
+
+/* Reviews */
+
+.star-rating {
+	overflow: hidden;
+	position: relative;
+	height: 1.618em;
+	line-height: 1.618;
+	font-size: 1em;
+	width: 5.3em;
+	font-family: star;
+	font-weight: 400
+}
+
+.star-rating::before {
+	content: '\53\53\53\53\53';
+	opacity: .25;
+	float: left;
+	top: 0;
+	left: 0;
+	position: absolute
+}
+
+.star-rating span {
+	overflow: hidden;
+	float: left;
+	top: 0;
+	left: 0;
+	position: absolute;
+	padding-top: 1.5em
+}
+
+.star-rating span::before {
+	content: '\53\53\53\53\53';
+	top: 0;
+	position: absolute;
+	left: 0;
+	color: #2c2d33
+}
+
 p.stars {
-	display: block;
-	margin: 0;
+	display: inline-block;
+	margin: 0
 }
 
 p.stars a {
@@ -242,10 +281,10 @@ p.stars a {
 	display: inline-block;
 	text-decoration: none;
 	margin-right: 1px;
-	font-weight: 400;
+	font-weight: 400
 }
 
-p.stars a:before {
+p.stars a::before {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -254,29 +293,42 @@ p.stars a:before {
 	height: 1em;
 	line-height: 1;
 	font-family: star;
-	content: '★';
+	content: '\53';
 	color: #43454b;
 	text-indent: 0;
+	opacity: .25
 }
 
-p.stars a:hover~a:before {
-	content: '★';
-	display: inline-block;
+p.stars a:hover~a::before {
+	content: '\53';
 	color: #43454b;
+	opacity: .25
 }
 
-p.stars a:before,
-p.stars a:hover~a:before,
-p.stars.selected a.active~a:before {
-	color: #6d6d6d;
-}
-
-p.stars.selected a.active:before,
-p.stars:hover a:before,
-p.stars.selected a:not(.active):before,
-p.stars.selected a.active:before {
+p.stars:hover a::before {
+	content: '\53';
 	color: #96588a;
+	opacity: 1
 }
+
+p.stars.selected a.active::before {
+	content: '\53';
+	color: #96588a;
+	opacity: 1
+}
+
+p.stars.selected a.active~a::before {
+	content: '\53';
+	color: #43454b;
+	opacity: .25
+}
+
+p.stars.selected a:not(.active)::before {
+	content: '\53';
+	color: #96588a;
+	opacity: 1
+}
+
 
 /*
  * Checkout

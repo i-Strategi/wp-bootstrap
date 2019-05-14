@@ -565,6 +565,14 @@ function wpbs_remove_extensions_link()
 add_action('admin_menu', 'wpbs_remove_extensions_link', 999);
 
 
+/**
+ * 
+ * Remove Connect to WooCommerce message
+ * 
+ */
+
+add_filter( 'woocommerce_helper_suppress_admin_notices', '__return_true' );
+
 
 /**
  * 
