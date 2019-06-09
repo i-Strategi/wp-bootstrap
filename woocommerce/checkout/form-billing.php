@@ -48,7 +48,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="woocommerce-account-fields">
 		<?php if ( ! $checkout->is_registration_required() ) : ?>
 
-			<p class="create-account custom-control custom-checkbox">
+			<p class="create-account custom-control custom-switch">
 				<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox custom-control-input" id="createaccount" <?php checked( ( true === $checkout->get_value( 'createaccount' ) || ( true === apply_filters( 'woocommerce_create_account_default_checked', false ) ) ), true ); ?> type="checkbox" name="createaccount" value="1" />
 				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox custom-control-label" for="createaccount">
 					<?php esc_html_e( 'Create an account?', 'woocommerce' ); ?>

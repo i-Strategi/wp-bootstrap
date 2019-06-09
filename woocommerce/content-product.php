@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 3.4.0
+ * @version 3.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -23,6 +23,7 @@ global $product;
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
+
 
 // Custom column classes
 $options = WPBS['woocommerce']['index']['product-size'];
@@ -36,7 +37,7 @@ foreach ($options as $key => $value){
 $col = implode(" ", $col);
 
 ?>
-<li <?php wc_product_class($col); ?>>
+<li <?php wc_product_class( '' . $col, $product ); ?>>
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.

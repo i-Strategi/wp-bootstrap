@@ -93,6 +93,7 @@ function wpbs_wc_styles()
 }
 add_action('wp_enqueue_scripts', 'wpbs_wc_styles',90);
 
+ 
 
 /**
  * 
@@ -234,7 +235,7 @@ add_filter('wpbs_sidebar_class', 'wpbs_wc_sidebar_classes',10);
  */
 
 // Customize checkout fields
-function wpbs_remove_checkout_fields($fields)
+function wpbs_wc_remove_checkout_fields($fields)
 {
     // Remove address 2
     unset($fields['billing']['billing_address_2']);
@@ -242,77 +243,19 @@ function wpbs_remove_checkout_fields($fields)
 
     return $fields;
 }
-add_filter('woocommerce_checkout_fields', 'wpbs_remove_checkout_fields',0);
+add_filter('woocommerce_checkout_fields', 'wpbs_wc_remove_checkout_fields',0);
 
 
 // Add Bootstrap classes to checkout fields
-function wpbs_checkout_form_control($fields)
+function wpbs_wc_checkout_form_control($fields)
 {
-    
-    // Billing fields
-    if (!empty($fields['billing']['billing_first_name'])) {
-        $fields['billing']['billing_first_name']['class'][] = "col-6";
-    }
-    if (!empty($fields['billing']['billing_last_name'])) {
-        $fields['billing']['billing_last_name']['class'][] = "col-6";
-    }
-    if (!empty($fields['billing']['billing_company'])) {
-        $fields['billing']['billing_company']['class'][] = "col-12";
-    }
-    if (!empty($fields['billing']['billing_country'])) {
-        $fields['billing']['billing_country']['class'][] = "col-12";
-    }
-    if (!empty($fields['billing']['billing_address_1'])) {
-        $fields['billing']['billing_address_1']['class'][] = "col-12";
-    }
-    if (!empty($fields['billing']['billing_address_2'])) {
-        $fields['billing']['billing_address_2']['class'][] = "col-12";
-    }
-    if (!empty($fields['billing']['billing_postcode'])) {
-        $fields['billing']['billing_postcode']['class'][] = "col-4";
-    }
-    if (!empty($fields['billing']['billing_city'])) {
-        $fields['billing']['billing_city']['class'][] = "col-8";
-    }
-    if (!empty($fields['billing']['billing_phone'])) {
-        $fields['billing']['billing_phone']['class'][] = "col-6";
-    }
-    if (!empty($fields['billing']['billing_email'])) {
-        $fields['billing']['billing_email']['class'][] = "col-6";
-    }
-    // Shipping fields
-    if (!empty($fields['shipping']['shipping_first_name'])) {
-        $fields['shipping']['shipping_first_name']['class'][] = "col-6";
-    }
-    if (!empty($fields['shipping']['shipping_last_name'])) {
-        $fields['shipping']['shipping_last_name']['class'][] = "col-6";
-    }
-    if (!empty($fields['shipping']['shipping_company'])) {
-        $fields['shipping']['shipping_company']['class'][] = "col-12";
-    }
-    if (!empty($fields['shipping']['shipping_country'])) {
-        $fields['shipping']['shipping_country']['class'][] = "col-12";
-    }
-    if (!empty($fields['shipping']['shipping_address_1'])) {
-        $fields['shipping']['shipping_address_1']['class'][] = "col-12";
-    }
-    if (!empty($fields['shipping']['shipping_address_2'])) {
-        $fields['shipping']['shipping_address_2']['class'][] = "col-12";
-    }
-    if (!empty($fields['shipping']['shipping_postcode'])) {
-        $fields['shipping']['shipping_postcode']['class'][] = "col-4";
-    }
-    if (!empty($fields['shipping']['shipping_city'])) {
-        $fields['shipping']['shipping_city']['class'][] = "col-8";
-    }
-
 
     foreach ($fields as &$fieldset) {
 
         foreach ($fieldset as &$field) {
 
             // Field wrapper class
-            $field['class'][] = 'form-group ml-0 mr-0 checkout-field';
+            $field['class'][] = 'form-group col';
 
             // Input class
             $field['input_class'][] = 'form-control';
@@ -322,20 +265,20 @@ function wpbs_checkout_form_control($fields)
     return $fields;
 
 }
-add_filter('woocommerce_checkout_fields', 'wpbs_checkout_form_control',0);
+add_filter('woocommerce_checkout_fields', 'wpbs_wc_checkout_form_control',0);
 
 
 /**
  * Add custom coupon form to checkout
  */
 
-function wpbs_custom_checkout_coupon()
+function wpbs_wc_custom_checkout_coupon()
 {
     if (wc_coupons_enabled()) {
        get_template_part('woocommerce/checkout/custom-coupon');
     }
 }
-add_action('woocommerce_review_order_before_order_total', 'wpbs_custom_checkout_coupon');
+add_action('woocommerce_review_order_after_order_total', 'wpbs_wc_custom_checkout_coupon');
 
 
 /**
@@ -345,16 +288,72 @@ add_action('woocommerce_review_order_before_order_total', 'wpbs_custom_checkout_
  */
 
 if (!empty(('wpbs_settings')['woocommerce']['cart']['hide-shipping'])) {
-    function wpbs_disable_shipping_on_cart($show_shipping)
+    function wpbs_wc_disable_shipping_on_cart($show_shipping)
     {
         if (is_cart()) {
             return false;
         }
         return $show_shipping;
     }
-    add_filter('woocommerce_cart_ready_to_calc_shipping', 'wpbs_disable_shipping_on_cart', 99);
+    add_filter('woocommerce_cart_ready_to_calc_shipping', 'wpbs_wc_disable_shipping_on_cart', 99);
 }
 
+
+/**
+ * 
+ * Show "Free" text if shipping is free
+ * 
+ */
+   
+function wpbs_wc_free_shipping_price( $label, $method ) {
+ 
+    // if shipping rate is 0, concatenate ": $0.00" to the label
+    if ( ! ( $method->cost > 0 ) ) {
+
+        // Returns formatted price 0
+        $label .= ': ' . wc_price(0);
+
+    } 
+    
+    // return original or edited shipping label
+    return $label;
+    
+}
+add_filter( 'woocommerce_cart_shipping_method_full_label', 'wpbs_wc_free_shipping_price', 10, 2 );
+
+/**
+ * 
+ * Terms & Conditions modal
+ * 
+ */
+function wpbs_wc_terms_modal() {
+
+    $terms_page_id = wc_get_page_id( 'terms' );
+    $post = get_post($terms_page_id); 
+    $content = $post->post_content;
+
+    if(is_checkout()){
+        echo '
+        <!-- Modal -->
+        <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">'. __('terms and conditions','woocommerce').'</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        '.$content.'
+        </div>
+        </div>
+        </div>
+        </div>    
+        ';
+    }
+}
+add_action('wp_footer','wpbs_wc_terms_modal',0);
 
 /**
  * 

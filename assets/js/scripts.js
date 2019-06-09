@@ -1,5 +1,10 @@
 jQuery(document).ready(function ($) {
 
+	/**
+	 * 
+	 * Bootstrap
+	 * 
+	 */
 
 	// Initialize tooltip
 	$('[data-toggle="tooltip"]').tooltip()
@@ -19,6 +24,12 @@ jQuery(document).ready(function ($) {
 			}
 		})
 	});
+
+	/**
+	 * 
+	 * Offcanvas menu
+	 * 
+	 */
 
 	function offcanvas_menu() {
 
@@ -48,4 +59,25 @@ jQuery(document).ready(function ($) {
 	}
 	offcanvas_menu();
 
+	/**
+	 * 
+	 * WooCommerce
+	 * 
+	 */
+
+
+	jQuery(window).on('country_to_state_changed', function () {
+		jQuery('#billing_state,#shipping_state').addClass('form-control');
+	});
+
+	jQuery(document).on('click', "#fakeCouponSubmit", function () {
+		var couponValue = jQuery("#fakeCouponField").val();
+		jQuery("form.checkout_coupon #coupon_code").val(couponValue);
+		jQuery("form.checkout_coupon").submit();
+	});
+
+	jQuery(document).on('click', '.woocommerce-terms-and-conditions-link', function (e) {
+		e.preventDefault();
+		jQuery('#termsModal').modal('show');
+	})
 });

@@ -18,10 +18,8 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<h3 class="text-center">
-    <?php esc_html_e( 'There are some issues with the items in your cart. Please go back to the cart page and resolve these issues before checking out.', 'woocommerce' ); ?>
-</h3>
+<div class="alert alert-info">
+    <?php esc_html_e( 'There are some issues with the items in your cart. Please go back to the cart page and resolve these issues before checking out.', 'woocommerce' ); ?> <a class="alert-link" href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ); ?>"><?php esc_html_e( 'Return to cart', 'woocommerce' ); ?></a>
+</div>
 
 <?php do_action( 'woocommerce_cart_has_errors' ); ?>
-
-<p class="text-center"><a class="button wc-backward btn btn-primary" href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ); ?>"><?php esc_html_e( 'Return to cart', 'woocommerce' ); ?></a></p>

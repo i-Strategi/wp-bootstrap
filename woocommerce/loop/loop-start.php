@@ -20,5 +20,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="clearfix"></div>
-<ul class="product-loop products row clearfix">
+<ul class="product-loop products row">

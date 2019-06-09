@@ -20,7 +20,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 ?>
-<table class="shop_table woocommerce-checkout-review-order-table table table-borderless">
+<table class="shop_table woocommerce-checkout-review-order-table table table-borderless table-sm">
 	<thead>
 		<tr>
 			<th class="product-name text-left pl-0"><?php _e('Product', 'woocommerce'); ?></th>
@@ -38,11 +38,18 @@ if (! defined('ABSPATH')) {
                     ?>
 					<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
 						<td class="product-name text-left pl-0">
-							<?php echo apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;'; ?>
-							<?php echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf('&times; %s', $cart_item['quantity']) . '</strong>', $cart_item, $cart_item_key); ?>
-							<?php echo wc_get_formatted_cart_item_data($cart_item); ?>
+							<div class="d-flex">
+								<div class="product-image align-self-start col-3 pl-0 pr-2">
+									<?php print_r($_product->get_image('thumbnail')); ?>
+								</div>
+								<div class="product-info align-self-center col-9 px-0">
+									<?php echo apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;'; ?>
+									<?php echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <strong class="product-quantity">' . sprintf('&times; %s', $cart_item['quantity']) . '</strong>', $cart_item, $cart_item_key); ?>
+									<?php echo wc_get_formatted_cart_item_data($cart_item); ?>
+								</div>
+							</div>
 						</td>
-						<td class="product-total text-right pr-0">
+						<td class="product-total text-right align-middle pr-0">
 							<?php echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); ?>
 						</td>
 					</tr>

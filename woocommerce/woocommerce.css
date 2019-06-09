@@ -229,7 +229,9 @@
 }
 
 
-/* Reviews */
+/* 
+ * @ Reviews 
+ */
 
 .star-rating {
 	overflow: hidden;
@@ -265,12 +267,16 @@
 	top: 0;
 	position: absolute;
 	left: 0;
-	color: #2c2d33
+	color: #2c2d33;
 }
 
 p.stars {
 	display: inline-block;
 	margin: 0
+}
+
+p.stars>span {
+	line-height: 1;
 }
 
 p.stars a {
@@ -296,7 +302,7 @@ p.stars a::before {
 	content: '\53';
 	color: #43454b;
 	text-indent: 0;
-	opacity: .25
+	opacity: .25;
 }
 
 p.stars a:hover~a::before {
@@ -307,13 +313,13 @@ p.stars a:hover~a::before {
 
 p.stars:hover a::before {
 	content: '\53';
-	color: #96588a;
+	color: var(--primary);
 	opacity: 1
 }
 
 p.stars.selected a.active::before {
 	content: '\53';
-	color: #96588a;
+	color: var(--primary);
 	opacity: 1
 }
 
@@ -325,24 +331,127 @@ p.stars.selected a.active~a::before {
 
 p.stars.selected a:not(.active)::before {
 	content: '\53';
-	color: #96588a;
+	color: var(--primary);
 	opacity: 1
 }
 
 
 /*
- * Checkout
+ * @ Checkout
  */
 
 .select2 {
 	display: none;
 }
 
-.checkout-field {
+#customer_details .form-row {
 	display: block;
+	flex: 1 0 100%;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#customer_details #billing_first_name_field,
+#customer_details #billing_last_name_field,
+#customer_details #billing_phone_field,
+#customer_details #billing_email_field,
+#customer_details #shipping_first_name_field,
+#customer_details #shipping_last_name_field,
+#customer_details #shipping_phone_field,
+#customer_details #shipping_email_field {
+	flex: 0 0 50%;
+}
+
+#customer_details #billing_postcode_field,
+#customer_details #shipping_postcode_field {
+	flex: 0 0 33.333333%;
+	max-width: 33.333333%;
+}
+
+#customer_details #billing_state_field,
+#customer_details #shipping_state_field {
+	flex: 1 0 33.333333%;
+}
+
+#customer_details #billing_city_field,
+#customer_details #shipping_city_field {
+	flex: 1 0 33.33333%;
+}
+
+#customer_details #billing_postcode_field+#billing_city_field,
+#customer_details #shipping_postcode_field+#shipping_city_field {
+	flex: 0 0 66.666667%;
+}
+
+#customer_details #billing_address_field+#billing_city_field,
+#customer_details #billing_address_2_field+#billing_city_field,
+#customer_details #shipping_address_field+#shipping_city_field,
+#customer_details #shipping_address_2_field+#shipping_city_field {
+	flex: 1 0 33.333333%;
 }
 
 
+/*
+ * @ My Account
+ */
+.woocommerce-address-fields .form-row {
+	display: block;
+	flex: 1 0 100%;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.woocommerce-address-fields #billing_first_name_field,
+.woocommerce-address-fields #billing_last_name_field,
+.woocommerce-address-fields #billing_phone_field,
+.woocommerce-address-fields #billing_email_field,
+.woocommerce-address-fields #shipping_first_name_field,
+.woocommerce-address-fields #shipping_last_name_field,
+.woocommerce-address-fields #shipping_phone_field,
+.woocommerce-address-fields #shipping_email_field {
+	flex: 0 0 50%;
+}
+
+.woocommerce-address-fields #billing_postcode_field,
+.woocommerce-address-fields #shipping_postcode_field {
+	flex: 0 0 33.333333%;
+	max-width: 33.333333%;
+}
+
+.woocommerce-address-fields #billing_state_field,
+.woocommerce-address-fields #shipping_state_field {
+	flex: 1 0 33.333333%;
+}
+
+.woocommerce-address-fields #billing_city_field,
+.woocommerce-address-fields #shipping_city_field {
+	flex: 1 0 33.33333%;
+}
+
+.woocommerce-address-fields #billing_postcode_field+#billing_city_field,
+.woocommerce-address-fields #shipping_postcode_field+#shipping_city_field {
+	flex: 0 0 66.666667%;
+}
+
+.woocommerce-address-fields #billing_address_field+#billing_city_field,
+.woocommerce-address-fields #billing_address_2_field+#billing_city_field,
+.woocommerce-address-fields #shipping_address_field+#shipping_city_field,
+.woocommerce-address-fields #shipping_address_2_field+#shipping_city_field {
+	flex: 1 0 33.333333%;
+}
+
+
+.woocommerce-shipping-methods .custom-control-label {
+	display: block;
+}
+
+.woocommerce-shipping-methods .custom-control-label span {
+	float: right;
+}
+
+.woocommerce-terms-and-conditions-wrapper label[for="terms"] {
+	font-size: 90%;
+}
 
 /*
  * Order Thank you
@@ -374,7 +483,7 @@ p.stars.selected a:not(.active)::before {
 */
 
 /*
- * Pakkelabels SHIT styling
+ * @ Pakkelabels
  */
 
 .woocommerce ul#shipping_method li .pakkelabels_shipping_field {
@@ -465,72 +574,21 @@ p.stars.selected a:not(.active)::before {
 /*
  * Mobile Queries
  */
-
 @media only screen and (max-width:767px) {
 
-	/* 
-	 * Shopping Cart
-	 */
-
-	.cart.shop_table thead {
-		display: none !important;
+	.woocommerce-billing-fields__field-wrapper,
+	.woocommerce-shipping-fields__field-wrapper,
+	.woocommerce-additional-fields__field-wrapper {
+		margin-left: -5px;
+		margin-right: -5px;
 	}
 
-	.cart.shop_table tr.cart_item {
-		display: block;
-		width: 100%;
-		margin-bottom: 15px;
-		background: #f9f9f9;
-		padding: 15px;
+	.woocommerce-billing-fields__field-wrapper .form-row,
+	.woocommerce-shipping-fields__field-wrapper .form-row,
+	.woocommerce-additional-fields__field-wrapper .form-row {
+		padding-left: 5px;
+		padding-right: 5px;
 	}
-
-	.cart.shop_table tr td {
-		display: block !important;
-		width: 100% !important;
-		text-align: right;
-		padding: 10px 0 0 0 !important;
-		border: 0 !important;
-	}
-
-	.cart.shop_table td.product-name:before,
-	.cart.shop_table td.product-price:before,
-	.cart.shop_table td.product-quantity:before,
-	.cart.shop_table td.product-subtotal:before {
-		content: attr(data-title) ": ";
-		font-weight: 700;
-		float: left;
-	}
-
-	.cart.shop_table td.product-remove {
-		padding: 0 !important;
-		position: relative;
-	}
-
-	.cart.shop_table td.product-remove .remove {
-		position: absolute;
-		right: 0;
-	}
-
-	.cart.shop_table td.product-thumbnail {
-		text-align: center;
-	}
-
-	.cart.shop_table td.product-quantity .form-control {
-		width: auto;
-		display: inline-block;
-		font-size: 14px;
-		padding: 6px 12px;
-		height: auto;
-	}
-
-	/*
-	 * Checkout
-	 */
-
-	#order_review h3 {
-		margin-top: 50px;
-	}
-
 }
 
 @media only screen and (min-width:768px) {
@@ -545,7 +603,7 @@ p.stars.selected a:not(.active)::before {
 	}
 
 	.cart .product-thumbnail {
-		width: 64px;
+		width: 84px;
 	}
 
 }
