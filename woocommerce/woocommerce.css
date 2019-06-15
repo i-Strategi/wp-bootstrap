@@ -486,88 +486,55 @@ p.stars.selected a:not(.active)::before {
  * @ Pakkelabels
  */
 
-.woocommerce ul#shipping_method li .pakkelabels_shipping_field {
-	max-width: 100%;
+
+.pakkelabels_stores {
+	display: flex;
 }
 
-.woocommerce ul#shipping_method li .pakkelabels_stores {
-	display: table;
+#pakkelabels_zipcode_field {
+	width: 100px;
+	margin-right: 1rem;
 }
 
-.woocommerce ul#shipping_method li .pakkelabels_stores>div {
-	display: table-cell;
-	vertical-align: middle;
+#pakkelabels_find_shop_btn {
+	margin: 0 !important;
 }
 
-.woocommerce ul#shipping_method li input#Pakkelabels_zipcode_field {
-	display: block;
-	width: auto;
-	height: 34px;
-	padding: 6px 12px;
-	font-size: 14px;
-	line-height: 1.42857143;
-	color: #555;
-	background-color: #fff;
-	background-image: none;
-	border: 1px solid #ccc;
-}
-
-.woocommerce ul#shipping_method li input#pakkelabels_find_shop_btn {
-	width: auto;
-	display: inline-block;
-	padding: 6px 12px;
-	margin-bottom: 0;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.42857143;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	-ms-touch-action: manipulation;
-	touch-action: manipulation;
-	/* cursor: pointer; */
-	/* -webkit-user-select: none; */
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-image: none;
-	border: 1px solid transparent;
-
-	background-color: #cf9963;
-	border-color: #cf9963;
-	color: #FFF;
-	margin-left: 5px;
-}
-
-.woocommerce ul#shipping_method li input#pakkelabels_find_shop_btn:hover,
-.woocommerce ul#shipping_method li input#pakkelabels_find_shop_btn:active,
-.woocommerce ul#shipping_method li input#pakkelabels_find_shop_btn:active:hover,
-.woocommerce ul#shipping_method li input#pakkelabels_find_shop_btn:focus {
-	background-color: #906B45;
-	border-color: #906B45;
-	color: #FFF;
-}
-
-.woocommerce ul#shipping_method li input#pakkelabels_find_shop_btn:disabled {
-	cursor: not-allowed;
-	filter: alpha(opacity=65);
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	opacity: .65;
-}
-
-#selected_shop_wrapper {
+#selected_shop_context {
 	padding: 0;
 	border: 0;
-	margin-top: 5px;
+	margin-top: 10px;
 	font-style: italic;
 }
 
-#pakkelabel-modal .pakkelabel-modal-footer {
-	padding: 15px;
+#selected_shop_context .pakkelabels-shop-header,
+#selected_shop_context .pakkelabels-shop-id {
+	display: none;
 }
 
-.powered-by-pakkelabels {
+#selected_shop_context .pakkelabels-shop-address,
+#selected_shop_context .pakkelabels-shop-zip-and-city {
+	display: inline;
+}
+
+#selected_shop_context .pakkelabels-shop-address:after {
+	content: ", ";
+}
+
+.pakkelabels-modal-close {
+	border: 0;
+}
+
+.pakkelabels-modal-content ul.pakkelabels-shoplist-ul {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.pakkelabels-modal-content ul.pakkelabels-shoplist-ul>li {
+	padding: 0 15px !important;
+}
+
+.pakkelabels-modal-footer {
 	display: none;
 }
 
