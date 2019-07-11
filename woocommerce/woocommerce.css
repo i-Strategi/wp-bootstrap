@@ -441,11 +441,11 @@ p.stars.selected a:not(.active)::before {
 }
 
 
-.woocommerce-shipping-methods .custom-control-label {
+.woocommerce-shipping-methods label {
 	display: block;
 }
 
-.woocommerce-shipping-methods .custom-control-label span {
+.woocommerce-shipping-methods .woocommerce-Price-amount {
 	float: right;
 }
 
