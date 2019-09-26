@@ -97,6 +97,8 @@
 					</div>
 					<div class="col-sm-8 col-lg-4">
 						<select class="form-control" name="wpbs_settings[layout][navbar][background]">
+							<option value="" <?php selected('', $options['layout']['navbar']['background']); ?>><?php _e('None', 'wpbs'); ?></option>
+							<option value="bg-white" <?php selected('bg-white', $options['layout']['navbar']['background']); ?>><?php _e('Background white', 'wpbs'); ?></option>
 							<option value="bg-light" <?php selected('bg-light', $options['layout']['navbar']['background']); ?>><?php _e('Background light', 'wpbs'); ?></option>
 							<option value="bg-dark" <?php selected('bg-dark', $options['layout']['navbar']['background']); ?>><?php _e('Background dark', 'wpbs'); ?></option>
 							<option value="bg-primary" <?php selected('bg-primary', $options['layout']['navbar']['background']); ?>><?php _e('Background primary', 'wpbs'); ?></option>
@@ -155,6 +157,19 @@
 			<fieldset id="layout-navbar-components" class="form-horizontal">
 				
 				<legend><?php _e('Navbar components', 'wpbs'); ?></legend>
+				
+				<div class="form-row form-group">		
+					<div class="col-sm-4">				
+						<label class="control-label"><?php _e('Navbar search', 'wpbs'); ?></label>
+					</div>
+					<div class="col-sm-8 col-lg-4">
+						<label class="switch">
+							<input type="hidden" name="wpbs_settings[layout][navbar][search]" value="0" />
+							<input type="checkbox" name="wpbs_settings[layout][navbar][search]" value="1" <?php checked(1, $options['layout']['navbar']['search'], true); ?> />
+							<span class="slider round"></span>
+						</label>
+					</div>
+				</div>
 
 				<div class="form-row form-group">	
 					<div class="col-sm-4">				
@@ -635,6 +650,7 @@
                     </div>
 					<div class="col-sm-8 col-lg-4">
 						<select class="form-control" name="wpbs_settings[layout][footer][background]">
+							<option value="bg-white" <?php selected('bg-white', $options['layout']['footer']['background']); ?>><?php _e('Background white', 'wpbs'); ?></option>
 							<option value="bg-light" <?php selected('bg-light', $options['layout']['footer']['background']); ?>><?php _e('Background light', 'wpbs'); ?></option>
 							<option value="bg-dark" <?php selected('bg-dark', $options['layout']['footer']['background']); ?>><?php _e('Background dark', 'wpbs'); ?></option>
 							<option value="bg-primary" <?php selected('bg-primary', $options['layout']['footer']['background']); ?>><?php _e('Background primary', 'primary'); ?></option>
@@ -653,6 +669,7 @@
                     </div>
 					<div class="col-sm-8 col-lg-4">
 						<select class="form-control" name="wpbs_settings[layout][footer][text]">
+							<option value="text-white" <?php selected('text-white', $options['layout']['footer']['text']); ?>><?php _e('Text white', 'wpbs'); ?></option>
 							<option value="text-light" <?php selected('text-light', $options['layout']['footer']['text']); ?>><?php _e('Text light', 'wpbs'); ?></option>
 							<option value="text-dark" <?php selected('text-dark', $options['layout']['footer']['text']); ?>><?php _e('Text dark', 'wpbs'); ?></option>
 							<option value="text-primary" <?php selected('text-primary', $options['layout']['footer']['text']); ?>><?php _e('Text primary', 'primary'); ?></option>

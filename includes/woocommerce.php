@@ -328,29 +328,33 @@ add_filter( 'woocommerce_cart_shipping_method_full_label', 'wpbs_wc_free_shippin
  */
 function wpbs_wc_terms_modal() {
 
-    $terms_page_id = wc_get_page_id( 'terms' );
-    $post = get_post($terms_page_id); 
-    $content = $post->post_content;
+    // Somehow if terms page is not set from WooCommerce settings, it will return -1 instead of just being empty.
+    if( wc_get_page_id( 'terms' ) != "-1"){
 
-    if(is_checkout()){
-        echo '
-        <!-- Modal -->
-        <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="termsModalLabel">'. __('terms and conditions','woocommerce').'</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        '.$content.'
-        </div>
-        </div>
-        </div>
-        </div>    
-        ';
+        $terms_page_id = wc_get_page_id( 'terms' );
+        $post = get_post($terms_page_id); 
+        $content = $post->post_content;
+        
+        if(is_checkout()){
+            echo '
+            <!-- Modal -->
+            <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="termsModalLabel">'. __('terms and conditions','woocommerce').'</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            '.$content.'
+            </div>
+            </div>
+            </div>
+            </div>    
+            ';
+        }
     }
 }
 add_action('wp_footer','wpbs_wc_terms_modal',0);

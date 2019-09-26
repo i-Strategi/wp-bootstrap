@@ -19,7 +19,7 @@ function wpbs_wrapper_classes (){
 
     if (setting_wrapper_style() == "full") {
 
-        $classes['style'] = 'full';      
+        $classes['style'] = 'full';
         
     } else {
     
@@ -102,10 +102,12 @@ if (setting_navbar_type() != "header") {
     add_action('navbar_collapse', 'wpbs_primary_nav', 10);
 
     // Navbar collapse
-    add_action('navbar_collapse', 'wpbs_navbar_search', 20);
+    if(!empty(WPBS['layout']['navbar']['search'])){
+        add_action('navbar_collapse', 'wpbs_navbar_search', 20);
+    }
 
     // Navbar container
-    if ( !empty( setting_navbar_container() ) ) {
+    if ( !empty(setting_navbar_container())) {
 
         add_action(
             'navbar', 
@@ -116,7 +118,7 @@ if (setting_navbar_type() != "header") {
         add_action(
             'navbar',
             function () {echo "</div>";}, 
-            100
+            1000
         );
 
     }
@@ -150,11 +152,6 @@ if (setting_navbar_type() != "header") {
         // Navbar margin
         if (!empty(setting_navbar_margin())) {
             $classes['navbar_margin'] = setting_navbar_margin();
-        }
-
-        // Navbar container
-        if (!empty(setting_navbar_container())) {
-            $classes['navbar_padding'] = 'px-0';
         }
         
         return $classes;
@@ -176,7 +173,7 @@ else {
      * Masthead
      */
 
-    // Init masthead
+    // Add masthead to @hook root_start
     add_action('root_start', 'wpbs_masthead', 50);
 
     // Masthead class
@@ -184,7 +181,11 @@ else {
     {
         // Expand class
         if( !empty( setting_navbar_expand() ) ) {
-            $classes['masthead_position'] = setting_navbar_expand();
+            $classes['masthead_expand'] = setting_navbar_expand();
+        }
+        // Position class
+        if( !empty( setting_navbar_position() ) ) {
+            $classes['masthead_position'] = setting_navbar_position();
         }
 
         // Margin bottom
@@ -198,28 +199,18 @@ else {
     /**
      * Header
      */
-    
-    // Init header inside masthead
-    add_action('masthead', 'wpbs_header', 10);
-    
-    // Remove navbar components from navbar, that is going to be added to #header
-    function wpbs_remove_navbar_components()
-    {
-        remove_action('navbar', 'wpbs_navbar_brand', 20);
-        remove_action('navbar', 'wpbs_navbar_toggler', 40);
-        remove_action('navbar_collapse', 'wpbs_navbar_search', 20);
-        remove_action('root_start', 'wpbs_navbar', 50);
-    }
-    add_action('init', 'wpbs_remove_navbar_components', 99);
+
+    // Add header to @hook masthead
+    add_action('masthead', 'wpbs_header', 50);
 
     // Add navbar-brand to #header
-    add_action('header', 'wpbs_navbar_brand', 20);
+    add_action('header', 'wpbs_navbar_brand', 50);
 
     // Add navbar-toggler to #header
-    add_action('header', 'wpbs_navbar_toggler', 40);
+    add_action('header', 'wpbs_navbar_toggler', 60);
     
     // Add search to #header
-    add_action('header', 'wpbs_navbar_search', 50);
+    add_action('header', 'wpbs_navbar_search', 70);
     
     // #header container
     if ( !empty( setting_navbar_container() ) ) {
@@ -236,7 +227,7 @@ else {
         );
     }
 
-    // #header class
+    // #header classes
     function wpbs_header_classes()
     {
         $classes['navbar'] = "navbar";
@@ -255,16 +246,18 @@ else {
      */
 
     // Init navbar inside header
-    add_action('masthead', 'wpbs_navbar', 20);
+    add_action('masthead', 'wpbs_navbar', 60);
 
     // Navbar collapse
     add_action('navbar', 'wpbs_navbar_collapse', 50);
 
     // Add primary nav to navbar-collapse
-    add_action('navbar_collapse', 'wpbs_primary_nav', 10);
+    add_action('navbar_collapse', 'wpbs_primary_nav', 50);
 
     // Navbar search
-    add_action('navbar_collapse', 'wpbs_navbar_search', 20); 
+    if(!empty(WPBS['layout']['navbar']['search'])){
+        add_action('navbar_collapse', 'wpbs_navbar_search', 60);
+    }
 
     // Navbar classes
     function wpbs_navbar_classes()
@@ -282,24 +275,28 @@ else {
             $classes['navbar_style'] = setting_navbar_style();
         }
         
-        // Navbar expand
-        if (!empty(setting_navbar_expand())) {
-            $classes['navbar_expand'] = setting_navbar_expand();
-        }
-        
-        // Navbar position
-        if (!empty(setting_navbar_position())) {
-            $classes['navbar_position'] = setting_navbar_position();
-        }
-        
         // Navbar margin
         if (!empty(setting_navbar_margin())) {
             $classes['navbar_margin'] = setting_navbar_margin();
         }
+        
+        switch (setting_navbar_expand()) {
+            case "navbar-expand-md":
+                $classes['navbar_padding'] = "py-0 py-md-2";
+                break;
+            case "navbar-expand-lg":
+                $classes['navbar_padding'] = "py-0 py-lg-2";
+                break;
+            case "navbar-expand-xl":
+                $classes['navbar_padding'] = "py-0 py-xl-2";
+                break;
+            default:
+                $classes['navbar_padding'] = "py-0";
+        }
 
         // Navbar container
         if (!empty(setting_navbar_container())) {
-            $classes['navbar_padding'] = 'px-0';
+            $classes['navbar_padding'] = $classes['navbar_padding'] . " px-0";
         }
         
         return $classes;
@@ -312,41 +309,21 @@ else {
 
         add_action(
             'navbar', 
-            function () {echo "<div class='container'>";},
+            function () {
+                echo "<div class='container'>";
+            },
             0
         );
 
         add_action(
             'navbar',
-            function () {echo "</div>";}, 
-            100
+            function () {
+                echo "</div>";
+            }, 
+            1000
         );
 
     }
-
-    // Remove top and bottom padding from navbar when collapsed
-    /*
-    function wpbs_navbar_padding()
-    {
-        $navbar_expand = setting_navbar_expand();
-
-        switch ($navbar_expand) {
-            case "navbar-expand-md":
-                $class = "py-0 py-md-2";
-                break;
-            case "navbar-expand-lg":
-                $class = "py-0 py-lg-2";
-                break;
-            case "navbar-expand-xl":
-                $class = "py-0 py-xl-2";
-                break;
-            default:
-                return false;
-        }
-        echo " " . $class;
-    }
-    add_action('navbar_class', 'wpbs_navbar_padding', 90);
-    */
 
 }
 
@@ -514,22 +491,20 @@ add_action('root_end', 'wpbs_footer', 50);
 
 
 // Footer class
-function wpbs_footer_class()
-{
-    $class = array();
-    
+function wpbs_footer_classes($classes)
+{    
     // Navbar background
     if (!empty(setting_footer_background())) {
-        $class[] = setting_footer_background();
+        $classes[] = setting_footer_background();
     }
     // Navbar Text
     if (!empty(setting_footer_text_color())) {
-        $class[] = setting_footer_text_color();
+        $classes[] = setting_footer_text_color();
     }
     
-    echo implode(" ", $class);
+    return $classes;
 }
-add_filter('footer_class', 'wpbs_footer_class', 5);
+add_filter('wpbs_footer_class', 'wpbs_footer_classes',0);
 
 // Add footer widgets to hook footer
 function wpbs_footer_widgets()
@@ -569,7 +544,7 @@ function wpbs_footer_info()
         <div class='container'>
             <div class='row'>
                 <div class='col-12 col-md-7 text-center text-md-left'>&copy ".date('Y')." ".get_bloginfo('name')."</div>
-                <div class='col-12 col-md-5 text-center text-md-right'><a href='https://i-strategi.dk' target='_blank'>". __('Developed by i-Strategi ApS.', 'wpbs')."</a></div>
+                <div class='col-12 col-md-5 text-center text-md-right'><a href='".apply_filters('wpbs_credits_link', 'https://i-strategi.dk')."' target='_blank'>". apply_filters('wpbs_credits_text', __('Developed by i-Strategi ApS.','wpbs')) ."</a></div>
             </div>
         </div>
     </section>

@@ -376,7 +376,7 @@ function wpbs_head_scripts()
     if (get_template_directory_uri() != get_stylesheet_directory_uri()) {
         $childtheme = wp_get_theme();
         $childtheme = sanitize_title($childtheme);
-        wp_register_style($childtheme, get_stylesheet_directory_uri() . '/style.css', array(), $css_cache_version, 'all');
+        wp_register_style($childtheme, get_stylesheet_directory_uri() . '/style.css', array(), '1.0', 'all');
         wp_enqueue_style($childtheme);
     }
 }
