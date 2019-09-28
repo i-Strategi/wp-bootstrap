@@ -1,9 +1,9 @@
 <?php
 
 /**
- * 
+ *
  * Declare WooCommerce Support
- * 
+ *
  */
 
 function wpbs_woocommerce_support()
@@ -18,9 +18,9 @@ add_action('after_setup_theme', 'wpbs_woocommerce_support');
 
 
 /**
- * 
+ *
  * WooCommerce Widgetarea
- * 
+ *
  */
 
 function wpbs_register_woocommerce_widget_areas()
@@ -50,9 +50,9 @@ add_action('widgets_init', 'wpbs_register_woocommerce_widget_areas', 5);
 
 
 /**
- * 
+ *
  * Scripts & Styles
- * 
+ *
  */
 
 // Remove Default WooCommerce CSS
@@ -89,16 +89,16 @@ function wpbs_wc_styles()
         font-weight: normal;
         font-style: normal;
     }';
-    wp_add_inline_style( 'woocommerce', $font_css );
+    wp_add_inline_style('woocommerce', $font_css);
 }
-add_action('wp_enqueue_scripts', 'wpbs_wc_styles',90);
+add_action('wp_enqueue_scripts', 'wpbs_wc_styles', 90);
 
  
 
 /**
- * 
+ *
  * Navbar / Header
- * 
+ *
  */
 
 
@@ -117,25 +117,24 @@ function wpbs_navbar_cart()
 if (setting_navbar_type() == "navbar") {
     add_action('navbar', 'wpbs_navbar_cart_mobile', 30);
     add_action('navbar', 'wpbs_navbar_cart', 90);
-}else {
+} else {
     add_action('header', 'wpbs_navbar_cart_mobile', 30);
     add_action('header', 'wpbs_navbar_cart', 90);
 }
 
 
 /**
- * 
+ *
  * Products
- * 
+ *
  */
 
 function wpbs_wc_cleanup()
 {
-    if( is_product() ) {
+    if (is_product()) {
         // Remove post header from products
         remove_action('content_start', 'wpbs_post_title', 50);
     }
-
 }
 add_action('wp_head', 'wpbs_wc_cleanup', 50);
 
@@ -143,23 +142,23 @@ add_action('wp_head', 'wpbs_wc_cleanup', 50);
 // Content classes
 function wpbs_wc_content_classes($classes)
 {
-    if ( is_shop() || is_product_category() || is_product_tag() ) {
-
+    if (is_shop() || is_product_taxonomy()) {
         $sizes = WPBS['woocommerce']['index'];
 
-        foreach ($sizes['content-size'] as $key => $value){
-            if(!empty($value)) $classes[$key] = $key.'-'.$value;
+        foreach ($sizes['content-size'] as $key => $value) {
+            if (!empty($value)) {
+                $classes[$key] = $key.'-'.$value;
+            }
         }
-
     }
-    if ( is_product() ) {
-
+    if (is_product()) {
         $sizes = WPBS['woocommerce']['product'];
 
-        foreach ($sizes['content-size'] as $key => $value){
-            if(!empty($value)) $classes[$key] = $key.'-'.$value;
+        foreach ($sizes['content-size'] as $key => $value) {
+            if (!empty($value)) {
+                $classes[$key] = $key.'-'.$value;
+            }
         }
-
     }
 
     return $classes;
@@ -170,12 +169,11 @@ add_filter('wpbs_content_class', 'wpbs_wc_content_classes', 10);
 // Sidebar classes
 function wpbs_wc_sidebar_classes($classes)
 {
-    if ( is_shop() || is_product_category() || is_product_tag() ) {
-
+    if (is_shop() || is_product_taxonomy()) {
         $settings = WPBS['woocommerce']['index'];
 
         // Sidebar size
-        foreach ($settings['sidebar-size'] as $key => $value){
+        foreach ($settings['sidebar-size'] as $key => $value) {
             $classes[$key] = $key.'-'.$value;
         }
         
@@ -193,16 +191,14 @@ function wpbs_wc_sidebar_classes($classes)
             default:
                 $classes['sidebar-visibility'] = 'd-block';
         }
-
     }
 
     // Single sidebar
-    if ( is_product() ) {
-
+    if (is_product()) {
         $settings = WPBS['woocommerce']['product'];
 
         // Sidebar size
-        foreach ($settings['sidebar-size'] as $key => $value){
+        foreach ($settings['sidebar-size'] as $key => $value) {
             $classes[$key] = $key.'-'.$value;
         }
         
@@ -220,18 +216,16 @@ function wpbs_wc_sidebar_classes($classes)
             default:
                 $classes['sidebar-visibility'] = 'd-block';
         }
-
     }
 
     return $classes;
-
 }
-add_filter('wpbs_sidebar_class', 'wpbs_wc_sidebar_classes',10);
+add_filter('wpbs_sidebar_class', 'wpbs_wc_sidebar_classes', 10);
 
 /**
- * 
+ *
  * Checkout
- * 
+ *
  */
 
 // Customize checkout fields
@@ -243,15 +237,13 @@ function wpbs_wc_remove_checkout_fields($fields)
 
     return $fields;
 }
-add_filter('woocommerce_checkout_fields', 'wpbs_wc_remove_checkout_fields',0);
+add_filter('woocommerce_checkout_fields', 'wpbs_wc_remove_checkout_fields', 0);
 
 
 // Add Bootstrap classes to checkout fields
 function wpbs_wc_checkout_form_control($fields)
 {
-
     foreach ($fields as &$fieldset) {
-
         foreach ($fieldset as &$field) {
 
             // Field wrapper class
@@ -263,9 +255,8 @@ function wpbs_wc_checkout_form_control($fields)
     }
     
     return $fields;
-
 }
-add_filter('woocommerce_checkout_fields', 'wpbs_wc_checkout_form_control',0);
+add_filter('woocommerce_checkout_fields', 'wpbs_wc_checkout_form_control', 0);
 
 
 /**
@@ -275,16 +266,16 @@ add_filter('woocommerce_checkout_fields', 'wpbs_wc_checkout_form_control',0);
 function wpbs_wc_custom_checkout_coupon()
 {
     if (wc_coupons_enabled()) {
-       get_template_part('woocommerce/checkout/custom-coupon');
+        get_template_part('woocommerce/checkout/custom-coupon');
     }
 }
 add_action('woocommerce_review_order_after_order_total', 'wpbs_wc_custom_checkout_coupon');
 
 
 /**
- * 
+ *
  * Disable shipping calculation on cart page
- * 
+ *
  */
 
 if (!empty(('wpbs_settings')['woocommerce']['cart']['hide-shipping'])) {
@@ -300,49 +291,48 @@ if (!empty(('wpbs_settings')['woocommerce']['cart']['hide-shipping'])) {
 
 
 /**
- * 
+ *
  * Show "Free" text if shipping is free
- * 
+ *
  */
    
-function wpbs_wc_free_shipping_price( $label, $method ) {
+function wpbs_wc_free_shipping_price($label, $method)
+{
  
     // if shipping rate is 0, concatenate ": $0.00" to the label
-    if ( ! ( $method->cost > 0 ) ) {
+    if (! ($method->cost > 0)) {
 
         // Returns formatted price 0
         $label .= ': ' . wc_price(0);
-
-    } 
+    }
     
     // return original or edited shipping label
     return $label;
-    
 }
-add_filter( 'woocommerce_cart_shipping_method_full_label', 'wpbs_wc_free_shipping_price', 10, 2 );
+add_filter('woocommerce_cart_shipping_method_full_label', 'wpbs_wc_free_shipping_price', 10, 2);
 
 /**
- * 
+ *
  * Terms & Conditions modal
- * 
+ *
  */
-function wpbs_wc_terms_modal() {
+function wpbs_wc_terms_modal()
+{
 
     // Somehow if terms page is not set from WooCommerce settings, it will return -1 instead of just being empty.
-    if( wc_get_page_id( 'terms' ) != "-1"){
-
-        $terms_page_id = wc_get_page_id( 'terms' );
-        $post = get_post($terms_page_id); 
+    if (wc_get_page_id('terms') != "-1") {
+        $terms_page_id = wc_get_page_id('terms');
+        $post = get_post($terms_page_id);
         $content = $post->post_content;
         
-        if(is_checkout()){
+        if (is_checkout()) {
             echo '
             <!-- Modal -->
             <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="termsModalLabel">'. __('terms and conditions','woocommerce').'</h5>
+            <h5 class="modal-title" id="termsModalLabel">'. __('terms and conditions', 'woocommerce').'</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -357,12 +347,12 @@ function wpbs_wc_terms_modal() {
         }
     }
 }
-add_action('wp_footer','wpbs_wc_terms_modal',0);
+add_action('wp_footer', 'wpbs_wc_terms_modal', 0);
 
 /**
- * 
+ *
  * Breadcrumbs
- * 
+ *
  */
 
 function wpbs_wc_breadcrumbs()
@@ -380,9 +370,9 @@ add_filter('woocommerce_breadcrumb_defaults', 'wpbs_wc_breadcrumbs', 6);
 add_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
 
 /**
- * 
+ *
  * Pagination
- * 
+ *
  */
 function wpbs_wc_pagination()
 {
@@ -401,9 +391,23 @@ function wpbs_wc_pagination()
     ));
     if (is_array($pages)) {
         $paged = (get_query_var('paged') == 0) ? 1 : get_query_var('paged');
+        
         echo '<ul class="pagination">';
         foreach ($pages as $page) {
-            echo "<li>$page</li>";
+            $page = str_replace('page-numbers', 'page-numbers page-link', $page);
+
+            $parent_class = "";
+
+            if (strpos($page, 'dots')) {
+                $parent_class = ' disabled';
+            }
+
+            if (strpos($page, 'current')) {
+                $parent_class = ' active';
+            }
+
+            //$page = preg_replace("/page-numbers/", "page-numbers page-link", $page);
+            echo "<li class='page-item$parent_class'>$page</li>";
         }
         echo '</ul>';
     }
@@ -412,9 +416,9 @@ remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 add_action('woocommerce_after_shop_loop', 'wpbs_wc_pagination', 10);
 
 /**
- * 
+ *
  *  Navbar-cart AJAX
- * 
+ *
  */
 
 function wpbs_ajax_navbar_cart($fragments)
@@ -461,7 +465,7 @@ add_action('woocommerce_widget_shopping_cart_buttons', 'wpbs_navbar_cart_checkou
  */
 
 // Add custom textbox to single product
-if (!empty( WPBS['woocommerce']['product']['general_text'] )) {
+if (!empty(WPBS['woocommerce']['product']['general_text'])) {
     function wpbs_wc_general_text()
     {
         echo '<div class="general-text">' . WPBS['woocommerce']['product']['general_text'] . '</div>';
@@ -470,31 +474,30 @@ if (!empty( WPBS['woocommerce']['product']['general_text'] )) {
 }
 
 // Add social share buttons to single product
-if (!empty( WPBS['woocommerce']['product']['share'] )) {
+if (!empty(WPBS['woocommerce']['product']['share'])) {
     function wpbs_wc_share()
     {
         echo '<ul class="product-share list-inline">';
         //Facebook
-        if ( !empty ( WPBS['woocommerce']['product']['share']['facebook'] ) ) {
+        if (!empty(WPBS['woocommerce']['product']['share']['facebook'])) {
             echo '<li class="list-inline-item"><a href="https://www.facebook.com/sharer.php?u=' . get_post_permalink() . '" target="_blank" class="share-link facebook" title="' . __('Share on Facebook', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-facebook-f"></span></a></li>';
         }
         //Twitter
-        if ( !empty( WPBS['woocommerce']['product']['share']['twitter'] ) ) {
+        if (!empty(WPBS['woocommerce']['product']['share']['twitter'])) {
             echo '<li class="list-inline-item"><a href="https://twitter.com/share?url=' . get_post_permalink() . '" target="_blank" class="share-link twitter" title="' . __('Share on Twitter', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-twitter"></span></a></li>';
         }
         //Linkedin+
-        if ( !empty( WPBS['woocommerce']['product']['share']['linkedin'] ) ) {
+        if (!empty(WPBS['woocommerce']['product']['share']['linkedin'])) {
             echo '<li class="list-inline-item"><a href="https://www.linkedin.com/sharing/share-offsite/?url=' . get_post_permalink() . '" target="_blank" class="share-link linkedin" title="' . __('Share on LinkedIn', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fab fa-linkedin-in"></span></a></li>';
         }
         //Google+
-        if ( !empty( WPBS['woocommerce']['product']['share']['email'] ) ) {
+        if (!empty(WPBS['woocommerce']['product']['share']['email'])) {
             echo '<li class="list-inline-item"><a href="mailto:?body=' . get_post_permalink() . '" class="share-link email" title="' . __('Send in e-mail', 'wpbs') . '" data-toggle="tooltip" data-placement="top" ><span class="fas fa-envelope"></span></a></li>';
         }
         echo '</ul>';
     }
 
     add_filter('woocommerce_single_product_summary', 'wpbs_wc_share', 36);
-
 }
 
 // Add Bootstrap classes to variation selector
@@ -556,9 +559,9 @@ if (!function_exists('wc_dropdown_variation_attribute_options')) {
 
 
 /**
- * 
+ *
  * Remove WooCommerce Extensions Advertisement menu link in admin
- * 
+ *
  */
 
 function wpbs_remove_extensions_link()
@@ -569,18 +572,18 @@ add_action('admin_menu', 'wpbs_remove_extensions_link', 999);
 
 
 /**
- * 
+ *
  * Remove Connect to WooCommerce message
- * 
+ *
  */
 
-add_filter( 'woocommerce_helper_suppress_admin_notices', '__return_true' );
+add_filter('woocommerce_helper_suppress_admin_notices', '__return_true');
 
 
 /**
- * 
+ *
  * Remove WooThemes Updater notification
- * 
+ *
  */
 
 remove_action('admin_notices', 'woothemes_updater_notice');
@@ -589,15 +592,16 @@ remove_action('admin_notices', 'woothemes_updater_notice');
 
 
 /**
- * 
- *  DEVELOPMENT 
- * 
+ *
+ *  DEVELOPMENT
+ *
  */
 
 /**
  * Brand Taxonomy
  */
-function custom_taxonomy_Item()  {
+function custom_taxonomy_Item()
+{
     $labels = array(
         'name'                       => 'Items',
         'singular_name'              => 'Item',
@@ -623,23 +627,22 @@ function custom_taxonomy_Item()  {
         'show_in_nav_menus'          => true,
         'show_tagcloud'              => true,
     );
-    register_taxonomy( 'item', 'product', $args );
-    register_taxonomy_for_object_type( 'item', 'product' );
+    register_taxonomy('item', 'product', $args);
+    register_taxonomy_for_object_type('item', 'product');
 }
 //add_action( 'init', 'custom_taxonomy_Item' );
 
 /**
- * Product Rich Snippets 
+ * Product Rich Snippets
  */
-function wpbs_wc_rich_snippets() {
-
-    if(is_product()) {
-        
+function wpbs_wc_rich_snippets()
+{
+    if (is_product()) {
         global $product;
         
         echo $product->get_date_on_sale_to();
         
-        $schema = array ();
+        $schema = array();
         
         $schema[] = array(
             "@context" => "https://schema.org/",
@@ -650,7 +653,7 @@ function wpbs_wc_rich_snippets() {
             "sku" => $product->get_sku(),
         );
         
-        $schema[] = array(    
+        $schema[] = array(
             "aggregateRating" => array(
                 "@type" => "AggregateRating",
                 "ratingValue" => $product->get_average_rating(),
@@ -658,7 +661,7 @@ function wpbs_wc_rich_snippets() {
                 )
         );
         
-        $offers = array(    
+        $offers = array(
          "offers" => array(
             "@type" => "Offer",
             "priceCurrency" => get_woocommerce_currency_symbol(),
@@ -669,8 +672,6 @@ function wpbs_wc_rich_snippets() {
         echo "<pre>";
         print_r($offers);
         echo "</pre>";
-            
     }
-    
 }
 //add_action('wp_head','wpbs_wc_rich_snippets',55);
