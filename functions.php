@@ -415,7 +415,7 @@ function wpbs_footer_scripts()
 
     // Slick JS
     if (!empty(WPBS['extensions']['slick'])) {
-        wp_register_script('slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css', array('jquery'), '1.8.1');
+        wp_register_script('slick', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), '1.8.1');
         wp_enqueue_script('slick');
     }
     

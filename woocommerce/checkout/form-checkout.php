@@ -53,7 +53,7 @@ $right = implode(" ", $right);
 
 		<?php do_action('woocommerce_checkout_before_customer_details'); ?>
 
-		<div class="<?php echo $left; ?>" id="customer_details">
+		<div id="customer_details" class="<?php echo apply_filters('wpbs_checkout_left_column','col-12 col-md-6');?>">
 			<div class="form-group clearfix billing_details">
 				<?php do_action('woocommerce_checkout_billing'); ?>
 			</div>
@@ -69,7 +69,7 @@ $right = implode(" ", $right);
 
 		<?php do_action('woocommerce_checkout_before_order_review'); ?>
 
-		<div id="order_review" class="woocommerce-checkout-review-order <?php echo $right; ?>">
+		<div id="order_review" class="woocommerce-checkout-review-order <?php echo apply_filters('wpbs_checkout_left_column','col-12 col-md-6 ml-auto');?>">
 			<div>
 				<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 				<h3 id="order_review_heading"><?php _e('Your order', 'woocommerce'); ?></h3>

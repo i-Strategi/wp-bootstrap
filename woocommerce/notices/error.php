@@ -24,10 +24,7 @@ if (! $messages) {
 }
 
 ?>
-<div class="woocommerce-error alert alert-danger alert-dismissible fade show" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	  <span aria-hidden="true">&times;</span>
-	</button>
+<div class="woocommerce-error alert alert-danger fade show" role="alert">
 	<ul class="list-unstyled mb-0">
 	<?php foreach ($messages as $message) : ?>
 		<li>

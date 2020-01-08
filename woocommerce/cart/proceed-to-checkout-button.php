@@ -13,4 +13,4 @@ if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-echo '<a href="' . esc_url(wc_get_checkout_url()) . '" class="checkout-button button alt wc-forward btn btn-success btn-lg btn-block">' . __('Proceed to checkout', 'woocommerce') . '</a>';
+echo '<a href="' . esc_url(wc_get_checkout_url()) . '" class="checkout-button button alt wc-forward btn ' . apply_filters('wpbs_proceed_to_checkout_btn_class','btn-success btn-lg btn-block') . '">' . __('Proceed to checkout', 'woocommerce') . '</a>';

@@ -129,14 +129,14 @@ if (setting_navbar_type() == "navbar") {
  *
  */
 
-function wpbs_wc_cleanup()
+function wpbs_wc_remove_product_header()
 {
     if (is_product()) {
         // Remove post header from products
         remove_action('content_start', 'wpbs_post_title', 50);
     }
 }
-add_action('wp_head', 'wpbs_wc_cleanup', 50);
+add_action('wp_head', 'wpbs_wc_remove_product_header', 50);
 
 
 // Content classes
@@ -278,7 +278,7 @@ add_action('woocommerce_review_order_after_order_total', 'wpbs_wc_custom_checkou
  *
  */
 
-if (!empty(('wpbs_settings')['woocommerce']['cart']['hide-shipping'])) {
+if (!empty(WPBS['woocommerce']['cart']['hide-shipping'])) {
     function wpbs_wc_disable_shipping_on_cart($show_shipping)
     {
         if (is_cart()) {
@@ -287,6 +287,14 @@ if (!empty(('wpbs_settings')['woocommerce']['cart']['hide-shipping'])) {
         return $show_shipping;
     }
     add_filter('woocommerce_cart_ready_to_calc_shipping', 'wpbs_wc_disable_shipping_on_cart', 99);
+    
+    function disable_shipping_calc_on_cart( $show_shipping ) {
+        if( is_cart() ) {
+            return false;
+        }
+        return $show_shipping;
+    }
+    add_filter( 'woocommerce_cart_ready_to_calc_shipping', 'disable_shipping_calc_on_cart', 99 );    
 }
 
 
@@ -556,36 +564,39 @@ if (!function_exists('wc_dropdown_variation_attribute_options')) {
     }
 }
 
+/**
+ * 
+ * Remove colon from shipping method name
+ * 
+ */
+function ace_hide_shipping_title( $label ) {
+    $label = str_replace(':','',$label);
+	return $label;
+}
+add_filter( 'woocommerce_cart_shipping_method_full_label', 'ace_hide_shipping_title' );
 
 
 /**
- *
- * Remove WooCommerce Extensions Advertisement menu link in admin
- *
+ * 
+ * Unhooks
+ * 
  */
 
+// Remove Cart Collaterals
+remove_action('woocommerce_cart_collaterals','woocommerce_cart_totals',10);
+
+//Remove WooCommerce Extensions Advertisement menu link in admin
 function wpbs_remove_extensions_link()
 {
     remove_submenu_page('woocommerce', 'wc-addons');
 }
 add_action('admin_menu', 'wpbs_remove_extensions_link', 999);
 
-
-/**
- *
- * Remove Connect to WooCommerce message
- *
- */
-
+//Remove Connect to WooCommerce message
 add_filter('woocommerce_helper_suppress_admin_notices', '__return_true');
 
 
-/**
- *
- * Remove WooThemes Updater notification
- *
- */
-
+// Remove WooThemes Updater notification
 remove_action('admin_notices', 'woothemes_updater_notice');
 
 
@@ -596,41 +607,6 @@ remove_action('admin_notices', 'woothemes_updater_notice');
  *  DEVELOPMENT
  *
  */
-
-/**
- * Brand Taxonomy
- */
-function custom_taxonomy_Item()
-{
-    $labels = array(
-        'name'                       => 'Items',
-        'singular_name'              => 'Item',
-        'menu_name'                  => 'Item',
-        'all_items'                  => 'All Items',
-        'parent_item'                => 'Parent Item',
-        'parent_item_colon'          => 'Parent Item:',
-        'new_item_name'              => 'New Item Name',
-        'add_new_item'               => 'Add New Item',
-        'edit_item'                  => 'Edit Item',
-        'update_item'                => 'Update Item',
-        'separate_items_with_commas' => 'Separate Item with commas',
-        'search_items'               => 'Search Items',
-        'add_or_remove_items'        => 'Add or remove Items',
-        'choose_from_most_used'      => 'Choose from the most used Items',
-    );
-    $args = array(
-        'labels'                     => $labels,
-        'hierarchical'               => true,
-        'public'                     => true,
-        'show_ui'                    => true,
-        'show_admin_column'          => true,
-        'show_in_nav_menus'          => true,
-        'show_tagcloud'              => true,
-    );
-    register_taxonomy('item', 'product', $args);
-    register_taxonomy_for_object_type('item', 'product');
-}
-//add_action( 'init', 'custom_taxonomy_Item' );
 
 /**
  * Product Rich Snippets

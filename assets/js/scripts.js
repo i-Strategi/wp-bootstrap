@@ -65,6 +65,11 @@ jQuery(document).ready(function ($) {
 	 * 
 	 */
 
+	jQuery(document).on('change', '.shop_table .qty', function () {
+		setTimeout(function () {
+			jQuery('[name="update_cart"]').click();
+		}, 1000)
+	});
 
 	jQuery(window).on('country_to_state_changed', function () {
 		jQuery('#billing_state,#shipping_state').addClass('form-control');
@@ -79,5 +84,7 @@ jQuery(document).ready(function ($) {
 	jQuery(document).on('click', '.woocommerce-terms-and-conditions-link', function (e) {
 		e.preventDefault();
 		jQuery('#termsModal').modal('show');
-	})
+	});
+
+
 });

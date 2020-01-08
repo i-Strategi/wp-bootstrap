@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     3.2.0
+ * @version     3.7.0
  */
 
 if (! defined('ABSPATH')) {
@@ -27,7 +27,7 @@ if (! defined('ABSPATH')) {
 
 		<?php if ($order->has_status('failed')) : ?>
 
-			<p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed alert alert-danger  mt-md-5 mb-md-"><?php _e('Unfortunately your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce'); ?></p>
+			<p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed alert alert-danger  mt-md-5 mb-md-5"><?php _e('Unfortunately your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce'); ?></p>
 
 			<p class="woocommerce-notice woocommerce-notice--error woocommerce-thankyou-order-failed-actions">
 				<a href="<?php echo esc_url($order->get_checkout_payment_url()); ?>" class="button pay btn btn-success"><?php _e('Pay', 'woocommerce') ?></a>

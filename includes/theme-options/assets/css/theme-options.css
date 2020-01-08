@@ -15,7 +15,8 @@
 #adminmenumain,
 #screen-meta,
 #wpadminbar,
-#wpfooter {
+#wpfooter,
+.update-nag {
 	display: none;
 }
 
